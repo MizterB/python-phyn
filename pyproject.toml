@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "phyn"
+version = "0.1.0"
+description = "A Python library for connecting to the Phyn API"
+authors = ["MizterB <5458030+MizterB@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+requests = "^2.26.0"
+boto3 = "^1.18.45"
+warrant = "^0.6.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+black = "^21.9b0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
