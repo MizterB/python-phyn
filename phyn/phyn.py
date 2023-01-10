@@ -1,8 +1,10 @@
 import secrets
+from datetime import date
+from urllib.parse import quote_plus
 
 import boto3
 import requests
-from warrant.aws_srp import AWSSRP
+from pycognito.aws_srp import AWSSRP
 
 from .const import API_KEY, BASE_URL, CLIENT_ID, POOL_ID, REGION, USER_AGENT
 
@@ -88,21 +90,21 @@ class Phyn:
     def devices_consumption_details(
         self,
         device_id,
-        duration=None,
-        details=None,
+        duration=date.today().strftime("%Y/%m/%d"),
+        details="Y",
         event_count=None,
         comparison=None,
-        precision=None,
+        precision=6,
     ):
         """
-        duration=5/2022 (url-encoded)
-        details=Y
+        duration=5/2022 (url-encoded, required)
+        details=Y (optional)
         event_count=Y (optional)
         comparison=Y (optional)
-        precision=6
+        precision=6 (required)
         """
         resp = requests.get(
-            f"{BASE_URL}/devices/{device_id}/consumption/details?duration={duration}&details={details}&event_count={event_count}&comparison={comparison}&precision={precision}",
+            f"{BASE_URL}/devices/{device_id}/consumption/details?duration={quote_plus(duration)}&details={details}&event_count={event_count}&comparison={comparison}&precision={precision}",
             headers=self._http_headers(),
         )
         return resp.json()
